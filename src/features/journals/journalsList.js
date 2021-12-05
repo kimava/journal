@@ -1,29 +1,37 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import StyledList from '../../styles/listStyle';
+import TimeStamp from './timeStamp';
 
 const StyledSection = styled.section`
-  height: 100vh;
-  flex: 1 1 30%;
-  border: 1px solid black;
+  ${({ theme }) => {
+    const { paddings, border } = theme;
+    return css`
+      padding: ${paddings.large};
+      height: 100vh;
+      flex: 1 1 40%;
+      border: ${border.default};
+    `;
+  }}
 `;
 
 const JournalsList = () => {
   const journals = useSelector((state) => state.journals);
 
-  const renderedJournals = journals.map((journal) => (
-    <article>
+  const orderJournals = journals
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  const renderedJournals = orderJournals.map((journal) => (
+    <StyledList key={journal.id}>
       <h3>{journal.title}</h3>
-      <p>{journal.content}</p>
-    </article>
+      <TimeStamp timestamp={journal.date} />
+      <p>{journal.content.substring(0, 100)}</p>
+    </StyledList>
   ));
 
-  return (
-    <StyledSection>
-      <h2>My Journal</h2>
-      {renderedJournals}
-    </StyledSection>
-  );
+  return <StyledSection>{renderedJournals}</StyledSection>;
 };
 
 export default JournalsList;

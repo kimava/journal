@@ -17,6 +17,12 @@ ${({ theme }) => {
       font-family: ${theme.fonts.family};
       background-color: ${theme.colors.pale};
     }
+
+    input,
+    textarea {
+      font: inherit;
+      outline: none;
+    }
   `;
 }}
 `;

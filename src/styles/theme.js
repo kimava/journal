@@ -1,12 +1,12 @@
 const margins = {
-  small: '.5rem',
-  legular: '1rem',
+  small: '0.5rem',
+  regular: '1rem',
   large: '2rem',
 };
 
 const paddings = {
-  small: '.5rem',
-  legular: '1rem',
+  small: '0.5rem',
+  regular: '1rem',
   large: '2rem',
 };
 
@@ -16,7 +16,7 @@ const fonts = {
     micro: '0.875rem',
     small: '1rem',
     regular: '1.125rem',
-    medium: '1.75rem',
+    medium: '1.5rem',
     large: '3rem',
     title: '6rem',
   },
@@ -29,8 +29,17 @@ const fonts = {
 const colors = {
   pale: '#faf4e6',
   orange: '#e82f17',
+  gray: '#5e5c5a',
   black: '#08090b',
   white: '#ffffff',
+};
+
+const border = {
+  default: `1px solid ${colors.black}`,
+};
+
+const shadow = {
+  default: '6px 6px 0px 1px #000000;',
 };
 
 const size = {
@@ -50,5 +59,7 @@ export const mainTheme = {
   paddings,
   fonts,
   colors,
+  border,
+  shadow,
   devices,
 };
