@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import styled, { css } from 'styled-components';
 import StyledList from '../../styles/listStyle';
 import TimeStamp from './timeStamp';
@@ -28,6 +30,7 @@ const JournalsList = () => {
       <h3>{journal.title}</h3>
       <TimeStamp timestamp={journal.date} />
       <p>{journal.content.substring(0, 100)}</p>
+      <Link to={`/journals/${journal.id}`}>View</Link>
     </StyledList>
   ));
 
