@@ -123,6 +123,7 @@ const StyledSection = styled.section`
       flex-direction: column;
       align-items: center;
       border: ${border.default};
+      border-top: none;
       border-right: none;
 
       h2 {

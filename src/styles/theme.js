@@ -16,7 +16,7 @@ const fonts = {
     micro: '0.875rem',
     small: '1rem',
     regular: '1.125rem',
-    medium: '1.5rem',
+    medium: '1.4rem',
     large: '3rem',
     title: '6rem',
   },

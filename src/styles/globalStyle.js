@@ -33,6 +33,10 @@ ${({ theme }) => {
     a:hover {
       color: ${theme.colors.orange};
     }
+
+    p {
+      line-height: 1.5em;
+    }
   `;
 }}
 `;

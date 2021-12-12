@@ -14,6 +14,7 @@ const StyledSection = styled.section`
       padding: ${paddings.large};
       flex: 1 1 40%;
       border: ${border.default};
+      border-top: none;
       overflow-y: scroll;
     `;
   }}
@@ -32,7 +33,7 @@ const JournalsList = () => {
       <div>
         <h3>{journal.title}</h3>
         <TimeStamp timestamp={journal.date} />
-        <p>{journal.content.substring(0, 100)}</p>
+        <p>{journal.content.substring(0, 60)}</p>
 
         <Link to={`/journals/${journal.id}`}>→ VIEW</Link>
       </div>

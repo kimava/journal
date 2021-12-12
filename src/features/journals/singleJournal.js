@@ -2,6 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import styled, { css } from 'styled-components';
+
+import TimeStamp from './timeStamp';
+
 const SingleJournal = () => {
   const { journalId } = useParams();
   const journal = useSelector((state) =>
@@ -11,7 +15,39 @@ const SingleJournal = () => {
   if (!journal) {
     return <h1>page not found</h1>;
   }
-  return <h1>{journal.title}</h1>;
+  return (
+    <StyledSection>
+      <h1>{journal.title}</h1>
+      <TimeStamp timestamp={journal.date} />
+      <p>{journal.content}</p>
+    </StyledSection>
+  );
 };
+
+const StyledSection = styled.section`
+  ${({ theme }) => {
+    const { margins, paddings, fonts } = theme;
+    return css`
+      margin: auto;
+      padding: ${paddings.large};
+      max-width: 50rem;
+
+      h1 {
+        margin-bottom: ${margins.large};
+        font-size: ${fonts.size.large};
+      }
+
+      span {
+        margin-bottom: ${margins.large};
+        display: block;
+        font-style: italic;
+      }
+
+      p {
+        font-size: ${fonts.size.medium};
+      }
+    `;
+  }}
+`;
 
 export default SingleJournal;
