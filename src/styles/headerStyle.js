@@ -7,6 +7,7 @@ const StyledHeader = styled.div`
       padding: ${paddings.large};
       display: flex;
       justify-content: center;
+      height: 10vh;
     `;
   }}
 `;

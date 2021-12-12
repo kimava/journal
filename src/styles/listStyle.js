@@ -6,24 +6,31 @@ const StyledList = styled.article`
     return css`
       margin: auto;
       margin-bottom: ${margins.regular};
+      padding: ${paddings.regular};
+      display: flex;
       width: 100%;
-      padding: ${paddings.small};
       border: ${border.default};
       box-shadow: ${shadow.default};
       -webkit-box-shadow: ${shadow.default};
 
+      div {
+        margin-left: ${margins.small};
+      }
+
       h3 {
         margin-bottom: ${margins.small};
+        display: inline-block;
         font-size: ${fonts.size.medium};
       }
 
       p {
+        margin-bottom: ${margins.small};
         font-size: ${fonts.size.regular};
       }
 
       span {
         margin-bottom: ${margins.small};
-        display: inline-block;
+        display: block;
       }
     `;
   }}

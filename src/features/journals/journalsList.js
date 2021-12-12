@@ -12,9 +12,9 @@ const StyledSection = styled.section`
     const { paddings, border } = theme;
     return css`
       padding: ${paddings.large};
-      height: 100vh;
       flex: 1 1 40%;
       border: ${border.default};
+      overflow-y: scroll;
     `;
   }}
 `;
@@ -28,11 +28,14 @@ const JournalsList = () => {
 
   const renderedJournals = orderJournals.map((journal) => (
     <StyledList key={journal.id}>
-      <h3>{journal.title}</h3>
-      <TimeStamp timestamp={journal.date} />
-      <p>{journal.content.substring(0, 100)}</p>
       <MoodIcons mood={journal.mood} />
-      <Link to={`/journals/${journal.id}`}>View</Link>
+      <div>
+        <h3>{journal.title}</h3>
+        <TimeStamp timestamp={journal.date} />
+        <p>{journal.content.substring(0, 100)}</p>
+
+        <Link to={`/journals/${journal.id}`}>→ VIEW</Link>
+      </div>
     </StyledList>
   ));
 

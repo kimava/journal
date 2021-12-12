@@ -5,7 +5,7 @@ const CustomContainer = styled.div`
     const { colors, devices, fonts, paddings } = theme;
     return css`
       width: 100%;
-      height: 100vh;
+      height: 90vh;
       display: flex;
       background-color: ${colors.pale};
       ${devices.tablet} {

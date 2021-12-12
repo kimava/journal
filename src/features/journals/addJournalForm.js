@@ -118,7 +118,6 @@ const StyledSection = styled.section`
     const { margins, paddings, fonts, border } = theme;
     return css`
       padding: ${paddings.large};
-      height: 100vh;
       flex: 1 1 60%;
       display: flex;
       flex-direction: column;
