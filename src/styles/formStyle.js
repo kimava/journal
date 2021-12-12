@@ -6,7 +6,7 @@ const StyledForm = styled.article`
     return css`
       margin-bottom: ${margins.regular};
       width: 100%;
-      height: 40%;
+      height: 60%;
       font: ${fonts.family};
       font-size: ${fonts.size.regular};
 

@@ -3,6 +3,15 @@ import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { journalAdded } from './journalsSlice';
 
+import {
+  faGrinStars,
+  faSmile,
+  faMeh,
+  faFrown,
+  faAngry,
+} from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import styled, { css } from 'styled-components';
 import StyledForm from '../../styles/formStyle';
 import Button from '../common/button';
@@ -10,25 +19,33 @@ import Button from '../common/button';
 const AddJournalForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [moodSelected, setMoodSelected] = useState('');
 
   const dispatch = useDispatch();
 
   const onTitleChange = (event) => setTitle(event.target.value);
   const onContentChange = (event) => setContent(event.target.value);
 
+  const isSelected = (value) => moodSelected === value;
+  const handleClick = (e) => {
+    setMoodSelected(e.currentTarget.value);
+  };
+
   const onSaveJournal = () => {
-    if (title && content) {
+    if (title && content && moodSelected) {
       dispatch(
         journalAdded({
           id: nanoid(),
           date: new Date().toISOString(),
           title,
           content,
+          mood: moodSelected,
         })
       );
 
       setTitle('');
       setContent('');
+      setMoodSelected('');
     }
   };
 
@@ -54,6 +71,31 @@ const AddJournalForm = () => {
           value={content}
           onChange={onContentChange}
         />
+        <StyledDiv>
+          {moods.map((mood) => (
+            <div key={mood.mood}>
+              <input
+                type='radio'
+                name='mood'
+                value={mood.mood}
+                id={mood.mood}
+                checked={isSelected(mood.mood)}
+                onChange={handleClick}
+              />
+              <label htmlFor={mood.mood}>
+                <FontAwesomeIcon
+                  icon={mood.icon}
+                  size='2x'
+                  style={
+                    moodSelected === mood.mood
+                      ? { color: 'e82f17' }
+                      : { color: '#5e5c5a' }
+                  }
+                />
+              </label>
+            </div>
+          ))}
+        </StyledDiv>
       </StyledForm>
 
       <Button onClick={onSaveJournal} disabled={!able}>
@@ -62,6 +104,14 @@ const AddJournalForm = () => {
     </StyledSection>
   );
 };
+
+const moods = [
+  { icon: faGrinStars, mood: 'super' },
+  { icon: faSmile, mood: 'good' },
+  { icon: faMeh, mood: 'soso' },
+  { icon: faFrown, mood: 'bad' },
+  { icon: faAngry, mood: 'angry' },
+];
 
 const StyledSection = styled.section`
   ${({ theme }) => {
@@ -79,6 +129,23 @@ const StyledSection = styled.section`
       h2 {
         margin-bottom: ${margins.large};
         font-size: ${fonts.size.medium};
+      }
+    `;
+  }}
+`;
+
+const StyledDiv = styled.div`
+  ${({ theme }) => {
+    const { margins, paddings } = theme;
+    return css`
+      padding: ${paddings.small};
+      padding-left: 0;
+      display: flex;
+      input {
+        display: none;
+      }
+      label {
+        margin-right: ${margins.small};
       }
     `;
   }}

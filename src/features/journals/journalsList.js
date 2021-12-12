@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import StyledList from '../../styles/listStyle';
 import TimeStamp from './timeStamp';
+import MoodIcons from './moodIcons';
 
 const StyledSection = styled.section`
   ${({ theme }) => {
@@ -30,6 +31,7 @@ const JournalsList = () => {
       <h3>{journal.title}</h3>
       <TimeStamp timestamp={journal.date} />
       <p>{journal.content.substring(0, 100)}</p>
+      <MoodIcons mood={journal.mood} />
       <Link to={`/journals/${journal.id}`}>View</Link>
     </StyledList>
   ));

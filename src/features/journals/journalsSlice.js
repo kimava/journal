@@ -7,12 +7,14 @@ const initialState = [
     title: 'First Journal',
     content: 'Yes!',
     date: sub(new Date(), { minutes: 10 }).toISOString(),
+    mood: 'soso',
   },
   {
     id: '2',
     title: 'Second Journal',
     content: 'Hello',
     date: sub(new Date(), { minutes: 5 }).toISOString(),
+    mood: 'soso',
   },
 ];
 
@@ -26,6 +28,6 @@ const journalsSlice = createSlice({
   },
 });
 
-export const { journalAdded } = journalsSlice.actions;
+export const { journalAdded, moodAdded } = journalsSlice.actions;
 
 export default journalsSlice.reducer;
