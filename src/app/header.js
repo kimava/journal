@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import StyledHeader from '../styles/headerStyle';
 
 const Header = () => {
   return (
     <StyledHeader>
-      <h1>HEADER</h1>
+      <Link to='/'>Journal</Link>
     </StyledHeader>
   );
 };
