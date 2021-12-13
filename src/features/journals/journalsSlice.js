@@ -25,9 +25,19 @@ const journalsSlice = createSlice({
     journalAdded(state, action) {
       state.push(action.payload);
     },
+    journalUpdated(state, action) {
+      const { id, title, content, mood } = action.payload;
+      const existingJournal = state.find((journal) => journal.id === id);
+      if (existingJournal) {
+        existingJournal.title = title;
+        existingJournal.content = content;
+        existingJournal.mood = mood;
+      }
+    },
   },
 });
 
-export const { journalAdded, moodAdded } = journalsSlice.actions;
+export const { journalAdded, journalUpdated, moodAdded } =
+  journalsSlice.actions;
 
 export default journalsSlice.reducer;

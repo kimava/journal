@@ -11,6 +11,7 @@ import Header from './app/header';
 import AddJournalForm from './features/journals/addJournalForm';
 import JournalsList from './features/journals/journalsList';
 import SingleJournal from './features/journals/singleJournal';
+import EditJournalForm from './features/journals/editJournalForm';
 
 function App() {
   return (
@@ -34,6 +35,11 @@ function App() {
               exact
               path='/journals/:journalId'
               element={<SingleJournal />}
+            />
+            <Route
+              exact
+              path='/editJournal/:journalId'
+              element={<EditJournalForm />}
             />
           </Routes>
         </div>

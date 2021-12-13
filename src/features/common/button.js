@@ -5,8 +5,11 @@ const StyledBtn = styled.button`
   ${({ theme }) => {
     const { paddings, fonts, colors, border, shadow } = theme;
     return css`
+      margin: auto;
+      margin-top: 0;
+      margin-bottom: 0;
       padding: ${paddings.small} ${paddings.large};
-      display: inline-flex;
+      display: block;
       outline: none;
       fonts: ${fonts.family};
       font-size: ${fonts.size.regular};

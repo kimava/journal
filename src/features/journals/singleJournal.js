@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import styled, { css } from 'styled-components';
+import Button from '../common/button';
 
 import TimeStamp from './timeStamp';
 
@@ -20,6 +21,9 @@ const SingleJournal = () => {
       <h1>{journal.title}</h1>
       <TimeStamp timestamp={journal.date} />
       <p>{journal.content}</p>
+      <Button>
+        <Link to={`/editJournal/${journal.id}`}>Edit</Link>
+      </Button>
     </StyledSection>
   );
 };
@@ -44,7 +48,12 @@ const StyledSection = styled.section`
       }
 
       p {
+        margin-bottom: ${margins.large};
         font-size: ${fonts.size.medium};
+      }
+
+      a:hover {
+        color: black;
       }
     `;
   }}
