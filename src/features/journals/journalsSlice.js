@@ -34,10 +34,14 @@ const journalsSlice = createSlice({
         existingJournal.mood = mood;
       }
     },
+    journalDeleted(state, action) {
+      const { id } = action.payload;
+      return state.filter((journal) => journal.id !== id);
+    },
   },
 });
 
-export const { journalAdded, journalUpdated, moodAdded } =
+export const { journalAdded, journalUpdated, journalDeleted, moodAdded } =
   journalsSlice.actions;
 
 export default journalsSlice.reducer;

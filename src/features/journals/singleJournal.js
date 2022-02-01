@@ -1,17 +1,25 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import styled, { css } from 'styled-components';
 import Button from '../common/button';
+import { journalDeleted } from './journalsSlice';
 
 import TimeStamp from './timeStamp';
 
 const SingleJournal = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { journalId } = useParams();
   const journal = useSelector((state) =>
     state.journals.find((journal) => journal.id === journalId)
   );
+
+  const onDeleteJournal = () => {
+    dispatch(journalDeleted({ id: journal.id }));
+    navigate(`/`);
+  };
 
   if (!journal) {
     return <h1>page not found</h1>;
@@ -21,9 +29,14 @@ const SingleJournal = () => {
       <h1>{journal.title}</h1>
       <TimeStamp timestamp={journal.date} />
       <p>{journal.content}</p>
-      <Button>
-        <Link to={`/editJournal/${journal.id}`}>Edit</Link>
-      </Button>
+
+      <ButtonGroup>
+        <Link to={`/editJournal/${journal.id}`}>
+          <Button>Edit</Button>
+        </Link>
+
+        <Button onClick={onDeleteJournal}>Delete</Button>
+      </ButtonGroup>
     </StyledSection>
   );
 };
@@ -57,6 +70,17 @@ const StyledSection = styled.section`
       }
     `;
   }}
+`;
+
+const ButtonGroup = styled.div`
+  margin: auto;
+  max-width: 50%;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    width: 8rem;
+  }
 `;
 
 export default SingleJournal;
