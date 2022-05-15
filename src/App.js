@@ -12,6 +12,9 @@ import AddJournalForm from './features/journals/addJournalForm';
 import JournalsList from './features/journals/journalsList';
 import SingleJournal from './features/journals/singleJournal';
 import EditJournalForm from './features/journals/editJournalForm';
+import Login from './features/users/login';
+import SignUp from './features/users/signUp';
+import ResetPW from './features/users/resetPW';
 
 function App() {
   return (
@@ -22,7 +25,6 @@ function App() {
         <div className='App'>
           <Routes>
             <Route
-              exact
               path='/'
               element={
                 <Grid>
@@ -31,16 +33,14 @@ function App() {
                 </Grid>
               }
             />
+            <Route path='/journals/:journalId' element={<SingleJournal />} />
             <Route
-              exact
-              path='/journals/:journalId'
-              element={<SingleJournal />}
-            />
-            <Route
-              exact
               path='/editJournal/:journalId'
               element={<EditJournalForm />}
             />
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/newpassword' element={<ResetPW />} />
           </Routes>
         </div>
       </Router>
