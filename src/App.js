@@ -1,12 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './styles/theme';
 import GlobalStyle from './styles/globalStyle';
 import Grid from './styles/grid';
-// import logo from './logo.svg';
-
 import Header from './app/header';
 import AddJournalForm from './features/journals/addJournalForm';
 import JournalsList from './features/journals/journalsList';
@@ -15,6 +12,7 @@ import EditJournalForm from './features/journals/editJournalForm';
 import Login from './features/users/login';
 import SignUp from './features/users/signUp';
 import ResetPW from './features/users/resetPW';
+import RequireAuth from './features/common/requireAuth';
 
 function App() {
   return (
@@ -27,16 +25,29 @@ function App() {
             <Route
               path='/'
               element={
-                <Grid>
-                  <AddJournalForm />
-                  <JournalsList />
-                </Grid>
+                <RequireAuth>
+                  <Grid>
+                    <AddJournalForm />
+                    <JournalsList />
+                  </Grid>
+                </RequireAuth>
               }
             />
-            <Route path='/journals/:journalId' element={<SingleJournal />} />
+            <Route
+              path='/journals/:journalId'
+              element={
+                <RequireAuth>
+                  <SingleJournal />
+                </RequireAuth>
+              }
+            />
             <Route
               path='/editJournal/:journalId'
-              element={<EditJournalForm />}
+              element={
+                <RequireAuth>
+                  <EditJournalForm />
+                </RequireAuth>
+              }
             />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/login' element={<Login />} />

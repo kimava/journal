@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createUser } from '../userSlice';
+import { createUser } from './userSlice';
 import styled from 'styled-components';
 import Button from '../common/button';
 

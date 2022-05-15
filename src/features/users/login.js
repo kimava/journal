@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { emailLogin, providerLogin, selectUserId } from '../userSlice';
+import { emailLogin, providerLogin, selectUserId } from './userSlice';
 import styled from 'styled-components';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillTwitterCircle } from 'react-icons/ai';

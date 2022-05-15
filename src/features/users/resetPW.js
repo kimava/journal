@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { resetPassword } from '../userSlice';
+import { resetPassword } from './userSlice';
 import Button from '../common/button';
 import styled from 'styled-components';
 
