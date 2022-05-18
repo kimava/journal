@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import { journalAdded } from './journalsSlice';
+import { journalAdded, saveJournal } from './journalsSlice';
 
 import {
   faGrinStars,
@@ -15,8 +15,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 import StyledForm from '../../styles/formStyle';
 import Button from '../common/button';
+import { selectUserId } from '../users/userSlice';
 
 const AddJournalForm = () => {
+  const userId = useSelector(selectUserId);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [moodSelected, setMoodSelected] = useState('');
@@ -34,7 +36,8 @@ const AddJournalForm = () => {
   const onSaveJournal = () => {
     if (title && content && moodSelected) {
       dispatch(
-        journalAdded({
+        saveJournal({
+          userId,
           id: nanoid(),
           date: new Date().toISOString(),
           title,
@@ -49,7 +52,7 @@ const AddJournalForm = () => {
     }
   };
 
-  const able = Boolean(title) && Boolean(content);
+  const able = Boolean(title) && Boolean(content) && Boolean(moodSelected);
 
   return (
     <StyledSection>

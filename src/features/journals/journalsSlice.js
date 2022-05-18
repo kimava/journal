@@ -1,29 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { sub } from 'date-fns';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  getDatabase,
+  ref,
+  set,
+  query,
+  remove,
+  onValue,
+  off,
+  orderByChild,
+  orderByValue,
+} from 'firebase/database';
+import { firebaseApp } from '../../service/firebase';
 
-const initialState = [
-  {
-    id: '1',
-    title: 'First Journal',
-    content: 'Yes!',
-    date: sub(new Date(), { minutes: 10 }).toISOString(),
-    mood: 'soso',
-  },
-  {
-    id: '2',
-    title: 'Second Journal',
-    content: 'Hello',
-    date: sub(new Date(), { minutes: 5 }).toISOString(),
-    mood: 'soso',
-  },
-];
+const db = getDatabase(firebaseApp);
 
-const journalsSlice = createSlice({
+const initialState = { posts: {}, status: 'idle', error: null };
+
+export const fetchJournals = (userId) => {
+  return (dispatch) => {
+    const sorted = query(
+      ref(db, `users/${userId}/journals`),
+      orderByValue('date')
+    );
+    onValue(sorted, (snapshot) => {
+      const result = snapshot.val();
+      dispatch(journalAdded(result));
+    });
+  };
+};
+
+export const saveJournal = createAsyncThunk('journals/saveJournal', (post) => {
+  try {
+    set(ref(db, `users/${post.userId}/journals/${post.id}`), post);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const journalsSlice = createSlice({
   name: 'journals',
   initialState,
   reducers: {
     journalAdded(state, action) {
-      state.push(action.payload);
+      state.posts = action.payload;
     },
     journalUpdated(state, action) {
       const { id, title, content, mood } = action.payload;
@@ -39,9 +58,16 @@ const journalsSlice = createSlice({
       return state.filter((journal) => journal.id !== id);
     },
   },
+  extraReducers(builder) {
+    builder.addCase(saveJournal.fulfilled, (state, action) => {
+      state.status = 'idle';
+    });
+  },
 });
 
 export const { journalAdded, journalUpdated, journalDeleted, moodAdded } =
   journalsSlice.actions;
+
+export const selectAllJournals = (state) => state.journals.posts;
 
 export default journalsSlice.reducer;

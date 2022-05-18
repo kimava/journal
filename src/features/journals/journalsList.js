@@ -1,11 +1,13 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import styled, { css } from 'styled-components';
 import StyledList from '../../styles/listStyle';
 import TimeStamp from './timeStamp';
 import MoodIcons from './moodIcons';
+import { fetchJournals, selectAllJournals } from './journalsSlice';
+import { selectUserId } from '../users/userSlice';
 
 const StyledSection = styled.section`
   ${({ theme }) => {
@@ -21,26 +23,42 @@ const StyledSection = styled.section`
 `;
 
 const JournalsList = () => {
-  const journals = useSelector((state) => state.journals);
+  const dispatch = useDispatch();
+  const userId = useSelector(selectUserId);
+  const allJournals = useSelector(selectAllJournals);
 
-  const orderJournals = journals
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+  const journalsStatus = useSelector((state) => state.journals.status);
 
-  const renderedJournals = orderJournals.map((journal) => (
-    <StyledList key={journal.id}>
-      <MoodIcons mood={journal.mood} />
-      <div>
-        <h3>{journal.title}</h3>
-        <TimeStamp timestamp={journal.date} />
-        <p>{journal.content.substring(0, 60)}</p>
+  useEffect(() => {
+    if (journalsStatus === 'idle') {
+      dispatch(fetchJournals(userId));
+    }
+  }, [journalsStatus, dispatch, userId]);
 
-        <Link to={`/journals/${journal.id}`}>→ VIEW</Link>
-      </div>
-    </StyledList>
-  ));
+  let contents;
 
-  return <StyledSection>{renderedJournals}</StyledSection>;
+  if (allJournals) {
+    // const orderJournals = allJournals
+    //   .slice()
+    //   .sort((a, b) => b.date.localeCompare(a.date));
+
+    contents = Object.keys(allJournals).map((journal) => (
+      <StyledList key={allJournals[journal].id}>
+        <MoodIcons mood={allJournals[journal].mood} />
+        <div>
+          <h3>{allJournals[journal].title}</h3>
+          <TimeStamp timestamp={allJournals[journal].date} />
+          <p>{allJournals[journal].content.substring(0, 60)}</p>
+
+          <Link to={`/journals/${allJournals[journal].id}`}>→ VIEW</Link>
+        </div>
+      </StyledList>
+    ));
+  } else {
+    contents = <p>no posts yet</p>;
+  }
+
+  return <StyledSection>{contents}</StyledSection>;
 };
 
 export default JournalsList;
