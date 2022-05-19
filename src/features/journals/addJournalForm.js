@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import { journalAdded, saveJournal } from './journalsSlice';
+import { saveJournal } from './journalsSlice';
 
 import {
   faGrinStars,

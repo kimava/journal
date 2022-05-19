@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { journalUpdated } from './journalsSlice';
+import {
+  journalUpdated,
+  saveJournal,
+  selectAllJournals,
+} from './journalsSlice';
 
 import {
   faGrinStars,
@@ -16,13 +20,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 import StyledForm from '../../styles/formStyle';
 import Button from '../common/button';
+import { selectUserId } from '../users/userSlice';
 
 const EditJournalForm = () => {
   const { journalId } = useParams();
-
-  const journal = useSelector((state) =>
-    state.journals.find((journal) => journal.id === journalId)
+  const userId = useSelector(selectUserId);
+  const allJournals = useSelector(selectAllJournals);
+  const key = Object.keys(allJournals).find(
+    (journal) => allJournals[journal].id === journalId
   );
+  const journal = allJournals[key];
 
   const [title, setTitle] = useState(journal.title);
   const [content, setContent] = useState(journal.content);
@@ -42,7 +49,13 @@ const EditJournalForm = () => {
   const onSaveJournal = () => {
     if (title && content && moodSelected) {
       dispatch(
-        journalUpdated({ id: journalId, title, content, mood: moodSelected })
+        saveJournal({
+          ...journal,
+          id: journalId,
+          title,
+          content,
+          mood: moodSelected,
+        })
       );
       navigate(`/journals/${journalId}`);
     }

@@ -1,14 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
-  getDatabase,
-  ref,
-  set,
-  remove,
-  onValue,
-  off,
-  orderByChild,
-  orderByValue,
-} from 'firebase/database';
+import { getDatabase, ref, set, remove, onValue, off } from 'firebase/database';
 import { firebaseApp } from '../../service/firebase';
 
 const db = getDatabase(firebaseApp);
@@ -33,25 +24,19 @@ export const saveJournal = createAsyncThunk('journals/saveJournal', (post) => {
   }
 });
 
+export const deleteJournal = createAsyncThunk(
+  `journals/deleteJournal`,
+  (post) => {
+    remove(ref(db, `users/${post.userId}/journals/${post.journalId}`));
+  }
+);
+
 export const journalsSlice = createSlice({
   name: 'journals',
   initialState,
   reducers: {
     journalAdded(state, action) {
       state.posts = action.payload;
-    },
-    journalUpdated(state, action) {
-      const { id, title, content, mood } = action.payload;
-      const existingJournal = state.find((journal) => journal.id === id);
-      if (existingJournal) {
-        existingJournal.title = title;
-        existingJournal.content = content;
-        existingJournal.mood = mood;
-      }
-    },
-    journalDeleted(state, action) {
-      const { id } = action.payload;
-      return state.filter((journal) => journal.id !== id);
     },
   },
   extraReducers(builder) {

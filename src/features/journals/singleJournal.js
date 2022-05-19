@@ -4,7 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import styled, { css } from 'styled-components';
 import Button from '../common/button';
-import { journalDeleted } from './journalsSlice';
+import { selectUserId } from '../users/userSlice';
+import { deleteJournal, selectAllJournals } from './journalsSlice';
 
 import TimeStamp from './timeStamp';
 
@@ -12,12 +13,15 @@ const SingleJournal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { journalId } = useParams();
-  const journal = useSelector((state) =>
-    state.journals.find((journal) => journal.id === journalId)
+  const userId = useSelector(selectUserId);
+  const allJournals = useSelector(selectAllJournals);
+  const key = Object.keys(allJournals).find(
+    (journal) => allJournals[journal].id === journalId
   );
+  const journal = allJournals[key];
 
   const onDeleteJournal = () => {
-    dispatch(journalDeleted({ id: journal.id }));
+    dispatch(deleteJournal({ userId, journalId }));
     navigate(`/`);
   };
 

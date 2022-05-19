@@ -41,6 +41,7 @@ const JournalsList = () => {
     const orderedJournals = Object.values(allJournals).sort((a, b) =>
       b.date.localeCompare(a.date)
     );
+
     contents = Object.keys(orderedJournals).map((journal) => (
       <StyledList key={orderedJournals[journal].id}>
         <MoodIcons mood={orderedJournals[journal].mood} />
