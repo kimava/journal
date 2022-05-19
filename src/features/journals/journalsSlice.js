@@ -3,7 +3,6 @@ import {
   getDatabase,
   ref,
   set,
-  query,
   remove,
   onValue,
   off,
@@ -18,11 +17,8 @@ const initialState = { posts: {}, status: 'idle', error: null };
 
 export const fetchJournals = (userId) => {
   return (dispatch) => {
-    const sorted = query(
-      ref(db, `users/${userId}/journals`),
-      orderByValue('date')
-    );
-    onValue(sorted, (snapshot) => {
+    const query = ref(db, `users/${userId}/journals`);
+    onValue(query, (snapshot) => {
       const result = snapshot.val();
       dispatch(journalAdded(result));
     });

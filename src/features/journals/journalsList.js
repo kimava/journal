@@ -38,19 +38,18 @@ const JournalsList = () => {
   let contents;
 
   if (allJournals) {
-    // const orderJournals = allJournals
-    //   .slice()
-    //   .sort((a, b) => b.date.localeCompare(a.date));
-
-    contents = Object.keys(allJournals).map((journal) => (
-      <StyledList key={allJournals[journal].id}>
-        <MoodIcons mood={allJournals[journal].mood} />
+    const orderedJournals = Object.values(allJournals).sort((a, b) =>
+      b.date.localeCompare(a.date)
+    );
+    contents = Object.keys(orderedJournals).map((journal) => (
+      <StyledList key={orderedJournals[journal].id}>
+        <MoodIcons mood={orderedJournals[journal].mood} />
         <div>
-          <h3>{allJournals[journal].title}</h3>
-          <TimeStamp timestamp={allJournals[journal].date} />
-          <p>{allJournals[journal].content.substring(0, 60)}</p>
+          <h3>{orderedJournals[journal].title}</h3>
+          <TimeStamp timestamp={orderedJournals[journal].date} />
+          <p>{orderedJournals[journal].content.substring(0, 60)}</p>
 
-          <Link to={`/journals/${allJournals[journal].id}`}>→ VIEW</Link>
+          <Link to={`/journals/${orderedJournals[journal].id}`}>→ VIEW</Link>
         </div>
       </StyledList>
     ));
