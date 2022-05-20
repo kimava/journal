@@ -8,11 +8,18 @@ import {
   GoogleAuthProvider,
   TwitterAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 const firebaseAuth = getAuth(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
 const twitterProvider = new TwitterAuthProvider();
+
+export const onAuthChange = (onUserChange) => {
+  onAuthStateChanged(firebaseAuth, (user) => {
+    onUserChange(user?.uid);
+  });
+};
 
 export const createUser = createAsyncThunk('user/createUser', async (form) => {
   const { email, password } = form;
@@ -86,7 +93,11 @@ const initialState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    userSet(state, action) {
+      state.userId = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(emailLogin.fulfilled, (state, action) => {
@@ -100,6 +111,8 @@ const userSlice = createSlice({
       });
   },
 });
+
+export const { userSet } = userSlice.actions;
 
 export const selectUserId = (state) => state.user.userId;
 
