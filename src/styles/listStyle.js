@@ -7,6 +7,7 @@ const StyledList = styled.article`
       margin: auto;
       margin-bottom: ${margins.regular};
       padding: ${paddings.regular};
+      position: relative;
       display: flex;
       width: 100%;
       border: ${border.default};
