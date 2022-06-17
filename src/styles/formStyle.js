@@ -22,6 +22,7 @@ const StyledForm = styled.article`
         width: 100%;
         height: 70%;
         padding: ${paddings.small};
+        white-space: pre-wrap;
         background-color: transparent;
         border: ${border.default};
       }

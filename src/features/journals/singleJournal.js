@@ -67,6 +67,7 @@ const StyledSection = styled.section`
       p {
         margin-bottom: ${margins.large};
         font-size: ${fonts.size.medium};
+        white-space: pre-wrap;
       }
 
       a:hover {
