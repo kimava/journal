@@ -5,7 +5,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import styled, { css } from 'styled-components';
 import StyledList from '../../styles/listStyle';
 import TimeStamp from './timeStamp';
-import MoodIcons from './moodIcons';
+import MoodIcons, { SelectedMood } from './moodIcons';
 import {
   deleteJournal,
   fetchJournals,
@@ -66,7 +66,7 @@ const JournalsList = () => {
 
     contents = Object.keys(orderedJournals).map((journal) => (
       <StyledList key={orderedJournals[journal].id}>
-        <MoodIcons mood={orderedJournals[journal].mood} />
+        <SelectedMood mood={orderedJournals[journal].mood} />
         <div>
           <h3>{orderedJournals[journal].title}</h3>
           <TimeStamp timestamp={orderedJournals[journal].date} />

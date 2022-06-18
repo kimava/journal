@@ -7,20 +7,11 @@ import {
   saveJournal,
   selectAllJournals,
 } from './journalsSlice';
-
-import {
-  faGrinStars,
-  faSmile,
-  faMeh,
-  faFrown,
-  faAngry,
-} from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import styled, { css } from 'styled-components';
 import StyledForm from '../../styles/formStyle';
 import Button from '../common/button';
 import { selectUserId } from '../users/userSlice';
+import { Moods } from './moodIcons';
 
 const EditJournalForm = () => {
   const { journalId } = useParams();
@@ -32,8 +23,8 @@ const EditJournalForm = () => {
   const journal = allJournals[key];
 
   const [title, setTitle] = useState(journal.title);
+  const [selectedMood, setSelectedMood] = useState(journal.mood);
   const [content, setContent] = useState(journal.content);
-  const [moodSelected, setMoodSelected] = useState(journal.mood);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,20 +32,20 @@ const EditJournalForm = () => {
   const onTitleChange = (e) => setTitle(e.target.value);
   const onContentChange = (e) => setContent(e.target.value);
 
-  const isSelected = (value) => moodSelected === value;
-  const handleClick = (e) => {
-    setMoodSelected(e.currentTarget.value);
+  const isSelected = (value) => selectedMood === value;
+  const handleMoodChange = (e) => {
+    setSelectedMood(e.currentTarget.value);
   };
 
   const onSaveJournal = () => {
-    if (title && content && moodSelected) {
+    if (title && content && selectedMood) {
       dispatch(
         saveJournal({
           ...journal,
           id: journalId,
           title,
           content,
-          mood: moodSelected,
+          mood: selectedMood,
         })
       );
       navigate(`/journals/${journalId}`);
@@ -81,29 +72,11 @@ const EditJournalForm = () => {
           onChange={onContentChange}
         />
         <StyledDiv>
-          {moods.map((mood) => (
-            <div key={mood.mood}>
-              <input
-                type='radio'
-                name='mood'
-                value={mood.mood}
-                id={mood.mood}
-                checked={isSelected(mood.mood)}
-                onChange={handleClick}
-              />
-              <label htmlFor={mood.mood}>
-                <FontAwesomeIcon
-                  icon={mood.icon}
-                  size='2x'
-                  style={
-                    moodSelected === mood.mood
-                      ? { color: 'e82f17' }
-                      : { color: '#5e5c5a' }
-                  }
-                />
-              </label>
-            </div>
-          ))}
+          <Moods
+            handleMoodChange={handleMoodChange}
+            isSelected={isSelected}
+            selected={selectedMood}
+          />
         </StyledDiv>
       </StyledForm>
       <Button type='button' onClick={onSaveJournal}>
@@ -112,14 +85,6 @@ const EditJournalForm = () => {
     </StyledSection>
   );
 };
-
-const moods = [
-  { icon: faGrinStars, mood: 'super' },
-  { icon: faSmile, mood: 'good' },
-  { icon: faMeh, mood: 'soso' },
-  { icon: faFrown, mood: 'bad' },
-  { icon: faAngry, mood: 'angry' },
-];
 
 const StyledSection = styled.section`
   ${({ theme }) => {
