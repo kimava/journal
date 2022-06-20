@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
@@ -29,11 +29,14 @@ const JournalsList = () => {
     dispatch(open({ id: e.currentTarget.id }));
   };
 
-  const closeModal = (e) => {
-    if (modalShow) {
-      dispatch(close());
-    }
-  };
+  const closeModal = useCallback(
+    (e) => {
+      if (modalShow) {
+        dispatch(close());
+      }
+    },
+    [dispatch, modalShow]
+  );
 
   const onEdit = (id) => {
     dispatch(close());
@@ -49,7 +52,7 @@ const JournalsList = () => {
     return () => {
       window.removeEventListener('click', closeModal);
     };
-  }, [modalShow, closeModal]);
+  }, [closeModal]);
 
   useEffect(() => {
     if (journalsStatus === 'idle') {
@@ -64,41 +67,44 @@ const JournalsList = () => {
       b.date.localeCompare(a.date)
     );
 
-    contents = Object.keys(orderedJournals).map((journal) => (
-      <StyledList key={orderedJournals[journal].id}>
-        <SelectedMood mood={orderedJournals[journal].mood} />
-        <div>
-          <h3>{orderedJournals[journal].title}</h3>
-          <TimeStamp timestamp={orderedJournals[journal].date} />
-          <p>{orderedJournals[journal].content.substring(0, 60)}</p>
+    contents = Object.keys(orderedJournals).map((journal) => {
+      let post = orderedJournals[journal];
+      return (
+        <StyledList key={post.id}>
+          <SelectedMood mood={post.mood} />
+          <div>
+            <h3>{post.title}</h3>
+            <TimeStamp timestamp={post.date} />
+            <p>{post.content.substring(0, 60)}</p>
 
-          <Link to={`/journals/${orderedJournals[journal].id}`}>→ VIEW</Link>
-        </div>
-        <div>
-          <button id={orderedJournals[journal].id} onClick={showModal}>
-            <FontAwesomeIcon icon={faEllipsisV} size='2x' />
-          </button>
-          <div ref={modalRef}>
-            <Modal journalId={orderedJournals[journal].id}>
-              <span
-                onClick={() => {
-                  onEdit(orderedJournals[journal].id);
-                }}
-              >
-                edit
-              </span>
-              <span
-                onClick={() => {
-                  onDelete(orderedJournals[journal].id);
-                }}
-              >
-                delete
-              </span>
-            </Modal>
+            <Link to={`/journals/${post.id}`}>→ VIEW</Link>
           </div>
-        </div>
-      </StyledList>
-    ));
+          <div>
+            <button id={post.id} onClick={showModal}>
+              <FontAwesomeIcon icon={faEllipsisV} size='2x' />
+            </button>
+            <div ref={modalRef}>
+              <Modal journalId={post.id}>
+                <span
+                  onClick={() => {
+                    onEdit(post.id);
+                  }}
+                >
+                  edit
+                </span>
+                <span
+                  onClick={() => {
+                    onDelete(post.id);
+                  }}
+                >
+                  delete
+                </span>
+              </Modal>
+            </div>
+          </div>
+        </StyledList>
+      );
+    });
   } else {
     contents = <p>no posts yet</p>;
   }

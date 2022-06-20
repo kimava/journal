@@ -1,6 +1,16 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+function Button({ disabled, children, ...rest }) {
+  return (
+    <StyledBtn disabled={disabled} {...rest}>
+      {children}
+    </StyledBtn>
+  );
+}
+
+export default Button;
+
 const StyledBtn = styled.button`
   ${({ theme }) => {
     const { paddings, fonts, colors, border, shadow } = theme;
@@ -27,13 +37,3 @@ const StyledBtn = styled.button`
     `;
   }}
 `;
-
-function Button({ disabled, children, ...rest }) {
-  return (
-    <StyledBtn disabled={disabled} {...rest}>
-      {children}
-    </StyledBtn>
-  );
-}
-
-export default Button;
