@@ -11,7 +11,7 @@ const SignUp = () => {
   const [form, setForm] = useState({ email: '', password: '' });
 
   if (userId) {
-    return <Navigate to='/' />;
+    return <Navigate to='/journals' />;
   }
 
   const onChange = ({ target: { name, value } }) => {

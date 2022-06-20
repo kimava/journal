@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <Link to='/'>Journal</Link>
+      <Link to='/journals'>Journal</Link>
       {userId && <button onClick={onLogout}>Sign Out</button>}
     </StyledHeader>
   );
