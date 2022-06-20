@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { saveJournal, selectAllJournals } from './journalsSlice';
 import { JournalForm, StyledSection } from '../common/journalForm';
 
@@ -16,8 +16,8 @@ const EditJournalForm = () => {
   const journal = allJournals[key];
 
   const [title, setTitle] = useState(journal.title);
-  const [selectedMood, setSelectedMood] = useState(journal.mood);
   const [content, setContent] = useState(journal.content);
+  const [selectedMood, setSelectedMood] = useState(journal.mood);
 
   const handleSave = () => {
     if (title && content && selectedMood) {

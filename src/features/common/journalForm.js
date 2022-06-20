@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moods } from '../journals/moodIcons';
+import { Moods } from './moodIcons';
 import Button from '../common/button';
 import StyledForm from '../../styles/formStyle';
 import styled, { css } from 'styled-components';

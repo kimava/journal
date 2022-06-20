@@ -1,13 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-
 import styled, { css } from 'styled-components';
 import Button from '../common/button';
+import TimeStamp from '../common/timeStamp';
 import { selectUserId } from '../users/userSlice';
 import { deleteJournal, selectAllJournals } from './journalsSlice';
-
-import TimeStamp from './timeStamp';
 
 const SingleJournal = () => {
   const dispatch = useDispatch();

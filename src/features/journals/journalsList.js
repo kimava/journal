@@ -2,19 +2,19 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { css } from 'styled-components';
 import StyledList from '../../styles/listStyle';
-import TimeStamp from './timeStamp';
-import { SelectedMood } from './moodIcons';
+import Modal from '../common/modal';
+import TimeStamp from '../common/timeStamp';
+import { SelectedMood } from '../common/moodIcons';
 import {
   deleteJournal,
   fetchJournals,
   selectAllJournals,
 } from './journalsSlice';
 import { selectUserId } from '../users/userSlice';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { open, close } from '../common/modalSlice';
-import Modal from '../common/modal';
 
 const JournalsList = () => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const JournalsList = () => {
     return () => {
       window.removeEventListener('click', closeModal);
     };
-  }, [modalShow]);
+  }, [modalShow, closeModal]);
 
   useEffect(() => {
     if (journalsStatus === 'idle') {
