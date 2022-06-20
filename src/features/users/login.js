@@ -48,7 +48,7 @@ const Login = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    userId && navigate('/journals');
+    userId && navigate('/');
   }, [navigate, userId]);
 
   return (

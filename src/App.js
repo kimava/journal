@@ -23,7 +23,7 @@ function App() {
         <div className='App'>
           <Routes>
             <Route
-              path='/journals'
+              path='/'
               element={
                 <RequireAuth>
                   <Grid>
