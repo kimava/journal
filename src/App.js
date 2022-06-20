@@ -52,6 +52,7 @@ function App() {
             <Route path='/signup' element={<SignUp />} />
             <Route path='/login' element={<Login />} />
             <Route path='/newpassword' element={<ResetPW />} />
+            <Route path='/*' element={<Navigate to='/'></Navigate>}></Route>
           </Routes>
         </div>
       </Router>
