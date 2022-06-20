@@ -5,7 +5,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import styled, { css } from 'styled-components';
 import StyledList from '../../styles/listStyle';
 import TimeStamp from './timeStamp';
-import MoodIcons, { SelectedMood } from './moodIcons';
+import { SelectedMood } from './moodIcons';
 import {
   deleteJournal,
   fetchJournals,

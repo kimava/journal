@@ -46,7 +46,7 @@ export const journalsSlice = createSlice({
   },
 });
 
-export const { journalAdded, journalUpdated, journalDeleted, moodAdded } =
+export const { journalAdded, journalDeleted, moodAdded } =
   journalsSlice.actions;
 
 export const selectAllJournals = (state) => state.journals.posts;
