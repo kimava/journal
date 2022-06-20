@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/journal/static/js/main.0dd618aa.chunk.js",
-    "main.js.map": "/journal/static/js/main.0dd618aa.chunk.js.map",
-    "runtime-main.js": "/journal/static/js/runtime-main.664f7fe3.js",
-    "runtime-main.js.map": "/journal/static/js/runtime-main.664f7fe3.js.map",
-    "static/js/2.7ca13f40.chunk.js": "/journal/static/js/2.7ca13f40.chunk.js",
-    "static/js/2.7ca13f40.chunk.js.map": "/journal/static/js/2.7ca13f40.chunk.js.map",
-    "index.html": "/journal/index.html",
-    "static/js/2.7ca13f40.chunk.js.LICENSE.txt": "/journal/static/js/2.7ca13f40.chunk.js.LICENSE.txt"
+    "main.js": "/journal/login/static/js/main.a35237d2.chunk.js",
+    "main.js.map": "/journal/login/static/js/main.a35237d2.chunk.js.map",
+    "runtime-main.js": "/journal/login/static/js/runtime-main.b435d81b.js",
+    "runtime-main.js.map": "/journal/login/static/js/runtime-main.b435d81b.js.map",
+    "static/js/2.69bb32af.chunk.js": "/journal/login/static/js/2.69bb32af.chunk.js",
+    "static/js/2.69bb32af.chunk.js.map": "/journal/login/static/js/2.69bb32af.chunk.js.map",
+    "index.html": "/journal/login/index.html",
+    "static/js/2.69bb32af.chunk.js.LICENSE.txt": "/journal/login/static/js/2.69bb32af.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.664f7fe3.js",
-    "static/js/2.7ca13f40.chunk.js",
-    "static/js/main.0dd618aa.chunk.js"
+    "static/js/runtime-main.b435d81b.js",
+    "static/js/2.69bb32af.chunk.js",
+    "static/js/main.a35237d2.chunk.js"
   ]
 }
