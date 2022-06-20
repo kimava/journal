@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './styles/theme';
 import GlobalStyle from './styles/globalStyle';
@@ -52,7 +57,7 @@ function App() {
             <Route path='/signup' element={<SignUp />} />
             <Route path='/login' element={<Login />} />
             <Route path='/newpassword' element={<ResetPW />} />
-            <Route path='/*' element={<Navigate to='/'></Navi>}></Route>
+            <Route path='/*' element={<Navigate to='/'></Navigate>}></Route>
           </Routes>
         </div>
       </Router>
