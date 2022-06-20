@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createUser } from './userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { createUser, selectUserId } from './userSlice';
 import styled from 'styled-components';
 import Button from '../common/button';
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const userId = useSelector(selectUserId);
   const [form, setForm] = useState({ email: '', password: '' });
+
+  if (userId) {
+    return <Navigate to='/' />;
+  }
 
   const onChange = ({ target: { name, value } }) => {
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -20,12 +26,19 @@ const SignUp = () => {
   return (
     <Container>
       <h1>Create a new account</h1>
-      <input onChange={onChange} name='email' type='text' placeholder='Email' />
+      <input
+        onChange={onChange}
+        name='email'
+        type='text'
+        placeholder='Email'
+        value={form.email}
+      />
       <input
         onChange={onChange}
         name='password'
         type='password'
         placeholder='Password'
+        value={form.password}
       />
       <Button onClick={onSignUp}>Sign Up</Button>
     </Container>

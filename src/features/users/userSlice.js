@@ -22,8 +22,13 @@ export const onAuthChange = (onUserChange) => {
 };
 
 export const createUser = createAsyncThunk('user/createUser', async (form) => {
-  const { email, password } = form;
-  await createUserWithEmailAndPassword(firebaseAuth, email, password);
+  try {
+    const { email, password } = form;
+    await createUserWithEmailAndPassword(firebaseAuth, email, password);
+    alert('created successfully!');
+  } catch (error) {
+    alert(`please check your email account again`);
+  }
 });
 
 export const emailLogin = createAsyncThunk('user/emailLogin', async (form) => {
