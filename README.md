@@ -1,9 +1,9 @@
-# Journal - 일기앱
+# Journal - 일기장
 
 ## Overview
 This app was created based on React and Redux for a personal project.
 
-LIVE LINK: https://avajournal.netlify.app/login
+LIVE LINK: https://avajournal.netlify.app/
 
 
 
