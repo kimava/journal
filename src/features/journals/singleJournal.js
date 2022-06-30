@@ -5,18 +5,14 @@ import styled, { css } from 'styled-components';
 import Button from '../common/button';
 import TimeStamp from '../common/timeStamp';
 import { selectUserId } from '../users/userSlice';
-import { deleteJournal, selectAllJournals } from './journalsSlice';
+import { deleteJournal, selectById } from './journalsSlice';
 
 const SingleJournal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { journalId } = useParams();
   const userId = useSelector(selectUserId);
-  const allJournals = useSelector(selectAllJournals);
-  const key = Object.keys(allJournals).find(
-    (journal) => allJournals[journal].id === journalId
-  );
-  const journal = allJournals[key];
+  const journal = useSelector((state) => selectById(state, journalId));
 
   const onDeleteJournal = () => {
     dispatch(deleteJournal({ userId, journalId }));

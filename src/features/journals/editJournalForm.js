@@ -2,18 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { saveJournal, selectAllJournals } from './journalsSlice';
+import { journalUpdated, saveJournal, selectById } from './journalsSlice';
 import { JournalForm, StyledSection } from '../common/journalForm';
 
 const EditJournalForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { journalId } = useParams();
-  const allJournals = useSelector(selectAllJournals);
-  const key = Object.keys(allJournals).find(
-    (journal) => allJournals[journal].id === journalId
-  );
-  const journal = allJournals[key];
+  const journal = useSelector((state) => selectById(state, journalId));
 
   const [title, setTitle] = useState(journal.title);
   const [content, setContent] = useState(journal.content);
@@ -21,6 +17,9 @@ const EditJournalForm = () => {
 
   const handleSave = () => {
     if (title && content && selectedMood) {
+      dispatch(
+        journalUpdated({ id: journalId, title, content, mood: selectedMood })
+      );
       dispatch(
         saveJournal({
           ...journal,
